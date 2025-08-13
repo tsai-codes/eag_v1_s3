@@ -31,6 +31,7 @@ class YouTubeClean {
             this.removeAds();
             this.removeSuggestions();
             this.hideCenteredSearchBar();
+            this.ensureSearchResultsVisible();
         } else {
             // Landing/home page - show centered search
             document.body.setAttribute('data-youtube-clean-page', 'home');
@@ -51,6 +52,7 @@ class YouTubeClean {
                     this.removeAds();
                     this.removeSuggestions();
                     this.hideCenteredSearchBar();
+                    this.ensureSearchResultsVisible();
                 } else {
                     document.body.setAttribute('data-youtube-clean-page', 'home');
                     this.ensureSearchBarVisible();
@@ -205,6 +207,7 @@ class YouTubeClean {
                         this.removeAds();
                         this.removeSuggestions();
                         this.hideCenteredSearchBar();
+                        this.ensureSearchResultsVisible();
                     } else {
                         this.ensureSearchBarVisible();
                     }
@@ -376,7 +379,9 @@ class YouTubeClean {
         }
 
         // Limit search results to top 5 items
-        this.limitSearchResults();
+        if (window.location.href.includes('/results?search_query=')) {
+            this.limitSearchResults();
+        }
 
         // Hide specific sections by text content
         const textBasedHiding = [
@@ -406,53 +411,61 @@ class YouTubeClean {
             return;
         }
 
-        // Find search results container
-        const searchContainer = document.querySelector('#contents.ytd-section-list-renderer');
-        if (!searchContainer) {
-            return;
-        }
-
-        // Get all video result items
-        const videoResults = searchContainer.querySelectorAll('ytd-video-renderer');
-        
-        // Hide results after the 5th one
-        videoResults.forEach((result, index) => {
-            if (index >= 5) {
-                result.style.display = 'none !important';
-                console.log(`YouTube Clean: Hidden search result ${index + 1}`);
-            } else {
-                // Ensure first 5 are visible
-                result.style.display = 'block !important';
+        // Wait a bit for content to load
+        setTimeout(() => {
+            // Find search results container
+            const searchContainer = document.querySelector('#contents.ytd-section-list-renderer, ytd-section-list-renderer #contents');
+            if (!searchContainer) {
+                console.log('YouTube Clean: Search container not found');
+                return;
             }
-        });
 
-        // Hide additional sections that might appear in search results
-        const sectionsToHide = [
-            'ytd-shelf-renderer', // Related searches, People also watched
-            'ytd-horizontal-card-list-renderer', // Horizontal video lists
-            'ytd-radio-renderer', // Music/playlist results
-            'ytd-playlist-renderer:nth-child(n+6)', // Playlists after 5th result
-            'ytd-channel-renderer:nth-child(n+6)', // Channels after 5th result
-            'ytd-movie-renderer', // Movie results
-            'ytd-promoted-sparkles-web-renderer', // Promoted content
-        ];
-
-        sectionsToHide.forEach(selector => {
-            const elements = searchContainer.querySelectorAll(selector);
-            elements.forEach(element => {
-                element.style.display = 'none !important';
+            // Get all video result items
+            const videoResults = searchContainer.querySelectorAll('ytd-video-renderer');
+            console.log(`YouTube Clean: Found ${videoResults.length} video results`);
+            
+            // Hide results after the 5th one
+            videoResults.forEach((result, index) => {
+                if (index >= 5) {
+                    result.style.display = 'none !important';
+                    result.style.visibility = 'hidden !important';
+                    console.log(`YouTube Clean: Hidden search result ${index + 1}`);
+                } else {
+                    // Ensure first 5 are visible
+                    result.style.display = 'block !important';
+                    result.style.visibility = 'visible !important';
+                    console.log(`YouTube Clean: Showing search result ${index + 1}`);
+                }
             });
-        });
 
-        // Hide pagination/load more buttons
-        const loadMoreButtons = document.querySelectorAll('ytd-continuation-item-renderer, .load-more-button, [aria-label*="Load more"]');
-        loadMoreButtons.forEach(button => {
-            button.style.display = 'none !important';
-            console.log('YouTube Clean: Hidden load more button');
-        });
+            // Hide additional sections that might appear in search results
+            const sectionsToHide = [
+                'ytd-shelf-renderer', // Related searches, People also watched
+                'ytd-horizontal-card-list-renderer', // Horizontal video lists
+                'ytd-radio-renderer', // Music/playlist results
+                'ytd-playlist-renderer:nth-child(n+6)', // Playlists after 5th result
+                'ytd-channel-renderer:nth-child(n+6)', // Channels after 5th result
+                'ytd-movie-renderer', // Movie results
+                'ytd-promoted-sparkles-web-renderer', // Promoted content
+            ];
 
-        // Add a visual indicator showing limited results
-        this.addSearchLimitIndicator();
+            sectionsToHide.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    element.style.display = 'none !important';
+                });
+            });
+
+            // Hide pagination/load more buttons
+            const loadMoreButtons = document.querySelectorAll('ytd-continuation-item-renderer, .load-more-button, [aria-label*="Load more"]');
+            loadMoreButtons.forEach(button => {
+                button.style.display = 'none !important';
+                console.log('YouTube Clean: Hidden load more button');
+            });
+
+            // Add a visual indicator showing limited results
+            this.addSearchLimitIndicator();
+        }, 1000);
     }
 
     addSearchLimitIndicator() {
@@ -618,6 +631,49 @@ class YouTubeClean {
         if (searchContainer) {
             searchContainer.style.display = 'none !important';
         }
+    }
+
+    ensureSearchResultsVisible() {
+        // Make sure search results page elements are visible
+        const elementsToShow = [
+            'ytd-page-manager',
+            '#page-manager',
+            'ytd-app',
+            '#content',
+            '#primary',
+            '#contents',
+            'ytd-section-list-renderer',
+            '#contents.ytd-section-list-renderer',
+            'ytd-video-renderer',
+            '#masthead',
+            'ytd-masthead'
+        ];
+
+        elementsToShow.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                if (element) {
+                    element.style.display = 'block !important';
+                    element.style.visibility = 'visible !important';
+                    element.style.opacity = '1 !important';
+                }
+            });
+        });
+
+        // Ensure the body shows search results
+        document.body.style.display = 'block !important';
+        document.body.style.visibility = 'visible !important';
+
+        // Remove any potential display:none from main containers
+        const mainContainers = document.querySelectorAll('html, body, ytd-app, #content, #primary');
+        mainContainers.forEach(container => {
+            if (container) {
+                container.style.display = 'block !important';
+                container.style.visibility = 'visible !important';
+            }
+        });
+
+        console.log('YouTube Clean: Ensured search results are visible');
     }
 
     toggle() {

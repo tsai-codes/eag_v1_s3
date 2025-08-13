@@ -234,11 +234,11 @@ ytd-page-manager {
     padding-top: 0 !important;
 }
 
-/* Hide all page content when search overlay is active */
-ytd-page-manager,
-#page-manager,
-ytd-app,
-#content {
+/* Hide all page content by default only on home page */
+body[data-youtube-clean-page="home"] ytd-page-manager,
+body[data-youtube-clean-page="home"] #page-manager,
+body[data-youtube-clean-page="home"] ytd-app,
+body[data-youtube-clean-page="home"] #content {
     display: none !important;
 }
 
@@ -246,12 +246,23 @@ ytd-app,
 body[data-youtube-clean-page="results"] ytd-page-manager,
 body[data-youtube-clean-page="results"] #page-manager,
 body[data-youtube-clean-page="results"] ytd-app,
-body[data-youtube-clean-page="results"] #content {
+body[data-youtube-clean-page="results"] #content,
+body[data-youtube-clean-page="results"] #primary,
+body[data-youtube-clean-page="results"] #contents {
     display: block !important;
+    visibility: visible !important;
 }
 
 body[data-youtube-clean-page="results"] .youtube-clean-search-container {
     display: none !important;
+}
+
+/* Ensure search results are visible */
+body[data-youtube-clean-page="results"] ytd-section-list-renderer,
+body[data-youtube-clean-page="results"] #contents.ytd-section-list-renderer,
+body[data-youtube-clean-page="results"] ytd-video-renderer {
+    display: block !important;
+    visibility: visible !important;
 }
 
 /* VIDEO-ONLY EXPERIENCE FOR WATCH PAGES */
@@ -427,26 +438,41 @@ ytd-browse[page-subtype="search"] #contents {
 }
 
 /* Limit search results to 5 items */
-ytd-browse[page-subtype="search"] ytd-video-renderer:nth-child(n+6),
-ytd-browse[page-subtype="search"] ytd-playlist-renderer:nth-child(n+6),
-ytd-browse[page-subtype="search"] ytd-channel-renderer:nth-child(n+6) {
+body[data-youtube-clean-page="results"] ytd-video-renderer:nth-child(n+6),
+body[data-youtube-clean-page="results"] ytd-playlist-renderer:nth-child(n+6),
+body[data-youtube-clean-page="results"] ytd-channel-renderer:nth-child(n+6) {
     display: none !important;
 }
 
-/* Hide search result sections after 5th item */
-ytd-browse[page-subtype="search"] ytd-shelf-renderer,
-ytd-browse[page-subtype="search"] ytd-horizontal-card-list-renderer,
-ytd-browse[page-subtype="search"] ytd-radio-renderer,
-ytd-browse[page-subtype="search"] ytd-movie-renderer,
-ytd-browse[page-subtype="search"] ytd-continuation-item-renderer,
-ytd-browse[page-subtype="search"] .load-more-button {
+/* Hide search result sections after 5th item but keep first 5 visible */
+body[data-youtube-clean-page="results"] ytd-video-renderer:nth-child(-n+5) {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Hide additional sections */
+body[data-youtube-clean-page="results"] ytd-shelf-renderer,
+body[data-youtube-clean-page="results"] ytd-horizontal-card-list-renderer,
+body[data-youtube-clean-page="results"] ytd-radio-renderer,
+body[data-youtube-clean-page="results"] ytd-movie-renderer,
+body[data-youtube-clean-page="results"] ytd-continuation-item-renderer,
+body[data-youtube-clean-page="results"] .load-more-button {
     display: none !important;
 }
 
-/* Style for search results container */
-ytd-browse[page-subtype="search"] #contents.ytd-section-list-renderer {
+/* Ensure search results container is visible */
+body[data-youtube-clean-page="results"] #contents.ytd-section-list-renderer {
+    display: block !important;
+    visibility: visible !important;
     max-height: none !important;
     overflow: visible !important;
+}
+
+/* Show header on search results page for navigation */
+body[data-youtube-clean-page="results"] #masthead,
+body[data-youtube-clean-page="results"] ytd-masthead {
+    display: block !important;
+    visibility: visible !important;
 }
 
 /* Clean watch page layout - completely remove sidebar */
