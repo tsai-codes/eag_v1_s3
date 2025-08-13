@@ -28,10 +28,21 @@ class YouTubeClean {
         } else if (window.location.href.includes('/results?search_query=')) {
             // Search results page
             document.body.setAttribute('data-youtube-clean-page', 'results');
+            
+            // Remove the search overlay immediately
+            const searchOverlay = document.querySelector('.youtube-clean-search-container');
+            if (searchOverlay) {
+                searchOverlay.remove();
+            }
+            
             this.removeAds();
             this.removeSuggestions();
-            this.hideCenteredSearchBar();
             this.ensureSearchResultsVisible();
+            
+            // Run visibility check multiple times to ensure results show
+            setTimeout(() => this.ensureSearchResultsVisible(), 500);
+            setTimeout(() => this.ensureSearchResultsVisible(), 1500);
+            setTimeout(() => this.ensureSearchResultsVisible(), 3000);
         } else {
             // Landing/home page - show centered search
             document.body.setAttribute('data-youtube-clean-page', 'home');
@@ -49,9 +60,15 @@ class YouTubeClean {
                     this.createVideoOnlyExperience();
                 } else if (window.location.href.includes('/results?search_query=')) {
                     document.body.setAttribute('data-youtube-clean-page', 'results');
+                    
+                    // Remove search overlay
+                    const searchOverlay = document.querySelector('.youtube-clean-search-container');
+                    if (searchOverlay) {
+                        searchOverlay.remove();
+                    }
+                    
                     this.removeAds();
                     this.removeSuggestions();
-                    this.hideCenteredSearchBar();
                     this.ensureSearchResultsVisible();
                 } else {
                     document.body.setAttribute('data-youtube-clean-page', 'home');
@@ -74,6 +91,44 @@ class YouTubeClean {
         
         // Remove end screen elements continuously
         this.removeEndScreenElements();
+        
+        // Optimize video display
+        this.optimizeVideoDisplay();
+    }
+
+    optimizeVideoDisplay() {
+        // Continuously ensure video is optimally displayed
+        setInterval(() => {
+            if (!window.location.href.includes('/watch?v=')) return;
+
+            // Find and optimize video element
+            const video = document.querySelector('video, .html5-main-video');
+            if (video) {
+                video.style.width = '100% !important';
+                video.style.height = '100% !important';
+                video.style.maxWidth = '100% !important';
+                video.style.maxHeight = '100% !important';
+                video.style.objectFit = 'contain !important';
+            }
+
+            // Find and optimize player container
+            const player = document.querySelector('#movie_player, #player-container, #player');
+            if (player) {
+                player.style.width = '100% !important';
+                player.style.height = '100vh !important';
+                player.style.maxWidth = '100vw !important';
+                player.style.maxHeight = '100vh !important';
+            }
+
+            // Ensure theater mode is maintained
+            const playerContainer = document.querySelector('#movie_player');
+            if (playerContainer && !playerContainer.classList.contains('ytp-fullscreen')) {
+                // Force theater-like mode without actually triggering theater mode
+                playerContainer.style.width = '100% !important';
+                playerContainer.style.height = '100vh !important';
+            }
+
+        }, 2000); // Check every 2 seconds
     }
 
     setupVideoOnlyLayout() {
@@ -116,36 +171,83 @@ class YouTubeClean {
             });
         });
 
-        // Ensure video player is visible and centered
+        // Ensure video player is visible and optimally sized
         const videoPlayer = document.querySelector('#movie_player, #player-container, #player');
         if (videoPlayer) {
             videoPlayer.style.display = 'block !important';
             videoPlayer.style.visibility = 'visible !important';
             videoPlayer.style.margin = '0 auto !important';
-            videoPlayer.style.maxWidth = '100% !important';
+            videoPlayer.style.maxWidth = '100vw !important';
             videoPlayer.style.width = '100% !important';
+            videoPlayer.style.height = '100vh !important';
+            videoPlayer.style.maxHeight = '100vh !important';
+            videoPlayer.style.position = 'relative !important';
+            videoPlayer.style.zIndex = '1000 !important';
+        }
+
+        // Optimize the actual video element
+        const videoElement = document.querySelector('video, .html5-main-video');
+        if (videoElement) {
+            videoElement.style.width = '100% !important';
+            videoElement.style.height = '100% !important';
+            videoElement.style.maxWidth = '100% !important';
+            videoElement.style.maxHeight = '100% !important';
+            videoElement.style.objectFit = 'contain !important'; // Maintain aspect ratio
         }
 
         // Style the primary container for video-only view
         const primaryContainer = document.querySelector('#primary, #primary.ytd-watch-flexy');
         if (primaryContainer) {
-            primaryContainer.style.width = '100% !important';
-            primaryContainer.style.maxWidth = '100% !important';
-            primaryContainer.style.margin = '0 auto !important';
-            primaryContainer.style.padding = '20px !important';
+            primaryContainer.style.width = '100vw !important';
+            primaryContainer.style.maxWidth = '100vw !important';
+            primaryContainer.style.margin = '0 !important';
+            primaryContainer.style.padding = '0 !important';
             primaryContainer.style.display = 'flex !important';
             primaryContainer.style.justifyContent = 'center !important';
+            primaryContainer.style.alignItems = 'center !important';
+            primaryContainer.style.minHeight = '100vh !important';
+            primaryContainer.style.height = '100vh !important';
+            primaryContainer.style.background = '#000 !important';
+            primaryContainer.style.overflow = 'hidden !important';
         }
 
-        // Hide page manager margins
+        // Optimize page manager and app container
         const pageManager = document.querySelector('ytd-page-manager');
         if (pageManager) {
             pageManager.style.marginLeft = '0 !important';
             pageManager.style.marginRight = '0 !important';
             pageManager.style.marginTop = '0 !important';
+            pageManager.style.padding = '0 !important';
+            pageManager.style.width = '100vw !important';
+            pageManager.style.height = '100vh !important';
+            pageManager.style.overflow = 'hidden !important';
         }
 
-        console.log('YouTube Clean: Created video-only layout');
+        const appContainer = document.querySelector('ytd-app');
+        if (appContainer) {
+            appContainer.style.margin = '0 !important';
+            appContainer.style.padding = '0 !important';
+            appContainer.style.width = '100vw !important';
+            appContainer.style.height = '100vh !important';
+            appContainer.style.overflow = 'hidden !important';
+        }
+
+        // Set body and html for full screen experience
+        document.body.style.margin = '0 !important';
+        document.body.style.padding = '0 !important';
+        document.body.style.overflow = 'hidden !important';
+        document.body.style.background = '#000 !important';
+        document.body.style.width = '100vw !important';
+        document.body.style.height = '100vh !important';
+
+        document.documentElement.style.margin = '0 !important';
+        document.documentElement.style.padding = '0 !important';
+        document.documentElement.style.overflow = 'hidden !important';
+        document.documentElement.style.background = '#000 !important';
+        document.documentElement.style.width = '100vw !important';
+        document.documentElement.style.height = '100vh !important';
+
+        console.log('YouTube Clean: Created full-screen video-only layout');
     }
 
     removeEndScreenElements() {
@@ -424,16 +526,20 @@ class YouTubeClean {
             const videoResults = searchContainer.querySelectorAll('ytd-video-renderer');
             console.log(`YouTube Clean: Found ${videoResults.length} video results`);
             
-            // Hide results after the 5th one
+            // Hide results after the 5th one and store them
+            const hiddenResults = [];
             videoResults.forEach((result, index) => {
                 if (index >= 5) {
                     result.style.display = 'none !important';
                     result.style.visibility = 'hidden !important';
+                    result.setAttribute('data-youtube-clean-hidden', 'true');
+                    hiddenResults.push(result);
                     console.log(`YouTube Clean: Hidden search result ${index + 1}`);
                 } else {
                     // Ensure first 5 are visible
                     result.style.display = 'block !important';
                     result.style.visibility = 'visible !important';
+                    result.setAttribute('data-youtube-clean-visible', 'true');
                     console.log(`YouTube Clean: Showing search result ${index + 1}`);
                 }
             });
@@ -463,15 +569,16 @@ class YouTubeClean {
                 console.log('YouTube Clean: Hidden load more button');
             });
 
-            // Add a visual indicator showing limited results
-            this.addSearchLimitIndicator();
+            // Add a visual indicator showing limited results with "Show More" option
+            this.addSearchLimitIndicator(hiddenResults);
         }, 1000);
     }
 
-    addSearchLimitIndicator() {
-        // Only add indicator once
-        if (document.querySelector('.youtube-clean-search-indicator')) {
-            return;
+    addSearchLimitIndicator(hiddenResults) {
+        // Remove existing indicator
+        const existingIndicator = document.querySelector('.youtube-clean-search-indicator');
+        if (existingIndicator) {
+            existingIndicator.remove();
         }
 
         const searchContainer = document.querySelector('#contents.ytd-section-list-renderer');
@@ -479,31 +586,115 @@ class YouTubeClean {
             return;
         }
 
-        // Create indicator element
+        // Create indicator element with show more functionality
         const indicator = document.createElement('div');
         indicator.className = 'youtube-clean-search-indicator';
+        
+        const hiddenCount = hiddenResults.length;
+        const showMoreText = hiddenCount > 0 ? `Show ${hiddenCount} more results` : 'No more results';
+        
         indicator.innerHTML = `
             <div style="
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: white;
-                padding: 12px 20px;
+                padding: 15px 20px;
                 margin: 20px 0;
-                border-radius: 8px;
+                border-radius: 12px;
                 text-align: center;
                 font-size: 14px;
                 font-weight: 500;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             ">
-                📺 YouTube Clean: Showing top 5 search results only
+                <div style="margin-bottom: 10px;">
+                    📺 YouTube Clean: Showing top 5 search results
+                </div>
+                ${hiddenCount > 0 ? `
+                <button id="youtube-clean-show-more" style="
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 13px;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                    outline: none;
+                " onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" 
+                   onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
+                    ${showMoreText} ▼
+                </button>
+                <button id="youtube-clean-show-less" style="
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 13px;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                    outline: none;
+                    display: none;
+                    margin-left: 10px;
+                " onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" 
+                   onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
+                    Show less ▲
+                </button>` : ''}
             </div>
         `;
 
-        // Insert after the first few results
-        const firstResult = searchContainer.querySelector('ytd-video-renderer:nth-child(5)');
-        if (firstResult && firstResult.nextSibling) {
-            searchContainer.insertBefore(indicator, firstResult.nextSibling);
+        // Insert after the 5th result
+        const fifthResult = searchContainer.querySelector('ytd-video-renderer:nth-child(5)');
+        if (fifthResult && fifthResult.nextSibling) {
+            searchContainer.insertBefore(indicator, fifthResult.nextSibling);
         } else {
             searchContainer.appendChild(indicator);
+        }
+
+        // Add event listeners for show/hide functionality
+        if (hiddenCount > 0) {
+            const showMoreBtn = document.getElementById('youtube-clean-show-more');
+            const showLessBtn = document.getElementById('youtube-clean-show-less');
+
+            if (showMoreBtn) {
+                showMoreBtn.addEventListener('click', () => {
+                    // Show all hidden results
+                    hiddenResults.forEach(result => {
+                        result.style.display = 'block !important';
+                        result.style.visibility = 'visible !important';
+                    });
+                    
+                    // Update button visibility
+                    showMoreBtn.style.display = 'none';
+                    if (showLessBtn) showLessBtn.style.display = 'inline-block';
+                    
+                    console.log('YouTube Clean: Showed all search results');
+                });
+            }
+
+            if (showLessBtn) {
+                showLessBtn.addEventListener('click', () => {
+                    // Hide results after 5th again
+                    hiddenResults.forEach(result => {
+                        result.style.display = 'none !important';
+                        result.style.visibility = 'hidden !important';
+                    });
+                    
+                    // Update button visibility
+                    showLessBtn.style.display = 'none';
+                    if (showMoreBtn) showMoreBtn.style.display = 'inline-block';
+                    
+                    // Scroll to top of results
+                    const firstResult = searchContainer.querySelector('ytd-video-renderer:first-child');
+                    if (firstResult) {
+                        firstResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    
+                    console.log('YouTube Clean: Showing only top 5 search results');
+                });
+            }
         }
     }
 
@@ -636,8 +827,8 @@ class YouTubeClean {
     ensureSearchResultsVisible() {
         // Make sure search results page elements are visible
         const elementsToShow = [
-            'ytd-page-manager',
-            '#page-manager',
+            'html',
+            'body',
             'ytd-app',
             '#content',
             '#primary',
@@ -646,7 +837,10 @@ class YouTubeClean {
             '#contents.ytd-section-list-renderer',
             'ytd-video-renderer',
             '#masthead',
-            'ytd-masthead'
+            'ytd-masthead',
+            'ytd-page-manager',
+            '#page-manager',
+            'ytd-browse'
         ];
 
         elementsToShow.forEach(selector => {
@@ -656,22 +850,46 @@ class YouTubeClean {
                     element.style.display = 'block !important';
                     element.style.visibility = 'visible !important';
                     element.style.opacity = '1 !important';
+                    element.style.height = 'auto !important';
+                    element.style.width = 'auto !important';
+                    element.style.overflow = 'visible !important';
                 }
             });
+        });
+
+        // Remove any transform or positioning that might hide content
+        const potentiallyHiddenElements = document.querySelectorAll('ytd-video-renderer, ytd-section-list-renderer');
+        potentiallyHiddenElements.forEach(element => {
+            element.style.transform = 'none !important';
+            element.style.position = 'relative !important';
+            element.style.left = 'auto !important';
+            element.style.top = 'auto !important';
+        });
+
+        // Force show the first 5 video results
+        const videoResults = document.querySelectorAll('ytd-video-renderer');
+        videoResults.forEach((result, index) => {
+            if (index < 5) {
+                result.style.display = 'block !important';
+                result.style.visibility = 'visible !important';
+                result.style.opacity = '1 !important';
+                result.style.height = 'auto !important';
+                result.style.margin = 'inherit !important';
+                result.style.padding = 'inherit !important';
+                console.log(`YouTube Clean: Force showing video result ${index + 1}`);
+            }
         });
 
         // Ensure the body shows search results
         document.body.style.display = 'block !important';
         document.body.style.visibility = 'visible !important';
+        document.body.style.background = 'white !important';
 
-        // Remove any potential display:none from main containers
-        const mainContainers = document.querySelectorAll('html, body, ytd-app, #content, #primary');
-        mainContainers.forEach(container => {
-            if (container) {
-                container.style.display = 'block !important';
-                container.style.visibility = 'visible !important';
-            }
-        });
+        // Remove the centered search overlay completely
+        const searchOverlay = document.querySelector('.youtube-clean-search-container');
+        if (searchOverlay) {
+            searchOverlay.remove();
+        }
 
         console.log('YouTube Clean: Ensured search results are visible');
     }

@@ -242,38 +242,107 @@ body[data-youtube-clean-page="home"] #content {
     display: none !important;
 }
 
-/* Show content only on search results pages */
+/* SEARCH RESULTS PAGE - FORCE VISIBILITY */
+body[data-youtube-clean-page="results"] {
+    background: white !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+body[data-youtube-clean-page="results"] html,
+body[data-youtube-clean-page="results"] body,
+body[data-youtube-clean-page="results"] ytd-app,
 body[data-youtube-clean-page="results"] ytd-page-manager,
 body[data-youtube-clean-page="results"] #page-manager,
-body[data-youtube-clean-page="results"] ytd-app,
 body[data-youtube-clean-page="results"] #content,
 body[data-youtube-clean-page="results"] #primary,
-body[data-youtube-clean-page="results"] #contents {
+body[data-youtube-clean-page="results"] #contents,
+body[data-youtube-clean-page="results"] ytd-section-list-renderer,
+body[data-youtube-clean-page="results"] ytd-video-renderer,
+body[data-youtube-clean-page="results"] ytd-browse,
+body[data-youtube-clean-page="results"] #masthead,
+body[data-youtube-clean-page="results"] ytd-masthead {
     display: block !important;
     visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    height: auto !important;
+    width: auto !important;
+    margin: inherit !important;
+    padding: inherit !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
 }
 
+/* Hide the search overlay on results page */
 body[data-youtube-clean-page="results"] .youtube-clean-search-container {
     display: none !important;
+    visibility: hidden !important;
 }
 
-/* Ensure search results are visible */
-body[data-youtube-clean-page="results"] ytd-section-list-renderer,
-body[data-youtube-clean-page="results"] #contents.ytd-section-list-renderer,
-body[data-youtube-clean-page="results"] ytd-video-renderer {
+/* Force first 5 video results to be visible */
+body[data-youtube-clean-page="results"] ytd-video-renderer:nth-child(-n+5) {
     display: block !important;
     visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    width: auto !important;
+    margin: inherit !important;
+    padding: inherit !important;
+    transform: none !important;
+    position: relative !important;
 }
 
 /* VIDEO-ONLY EXPERIENCE FOR WATCH PAGES */
+body[data-youtube-clean-page="watch"] {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #000 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+body[data-youtube-clean-page="watch"] html {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #000 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+body[data-youtube-clean-page="watch"] ytd-app {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    background: #000 !important;
+}
+
 body[data-youtube-clean-page="watch"] ytd-page-manager,
-body[data-youtube-clean-page="watch"] #page-manager,
-body[data-youtube-clean-page="watch"] ytd-app,
+body[data-youtube-clean-page="watch"] #page-manager {
+    display: block !important;
+    background: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+
 body[data-youtube-clean-page="watch"] #content {
     display: block !important;
     background: #000 !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
 }
 
 body[data-youtube-clean-page="watch"] .youtube-clean-search-container {
@@ -309,34 +378,60 @@ body[data-youtube-clean-page="watch"] #below-the-fold {
     visibility: hidden !important;
 }
 
-/* Ensure video player is centered and visible */
+/* FULL-SCREEN VIDEO PLAYER */
 body[data-youtube-clean-page="watch"] #movie_player,
 body[data-youtube-clean-page="watch"] #player-container,
 body[data-youtube-clean-page="watch"] #player {
     display: block !important;
     visibility: visible !important;
     margin: 0 auto !important;
-    max-width: 100% !important;
+    max-width: 100vw !important;
     width: 100% !important;
     height: 100vh !important;
+    max-height: 100vh !important;
     position: relative !important;
+    z-index: 1000 !important;
+    background: #000 !important;
+}
+
+/* Optimize the actual video element */
+body[data-youtube-clean-page="watch"] video,
+body[data-youtube-clean-page="watch"] .html5-main-video {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important; /* Maintain aspect ratio */
 }
 
 /* Center the primary container for video */
 body[data-youtube-clean-page="watch"] #primary,
 body[data-youtube-clean-page="watch"] #primary.ytd-watch-flexy {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
     padding: 0 !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     min-height: 100vh !important;
+    height: 100vh !important;
     background: #000 !important;
+    overflow: hidden !important;
 }
 
-/* Remove all end screen elements */
+/* Ensure video controls are accessible */
+body[data-youtube-clean-page="watch"] .ytp-chrome-bottom,
+body[data-youtube-clean-page="watch"] .ytp-chrome-controls,
+body[data-youtube-clean-page="watch"] .ytp-progress-bar-container,
+body[data-youtube-clean-page="watch"] .ytp-left-controls,
+body[data-youtube-clean-page="watch"] .ytp-right-controls {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Remove all end screen elements and overlays */
 body[data-youtube-clean-page="watch"] .ytp-ce-element,
 body[data-youtube-clean-page="watch"] .ytp-cards-teaser,
 body[data-youtube-clean-page="watch"] .ytp-endscreen-content,
@@ -437,17 +532,11 @@ ytd-browse[page-subtype="search"] #contents {
     display: block !important;
 }
 
-/* Limit search results to 5 items */
+/* Hide videos after 5th result */
 body[data-youtube-clean-page="results"] ytd-video-renderer:nth-child(n+6),
 body[data-youtube-clean-page="results"] ytd-playlist-renderer:nth-child(n+6),
 body[data-youtube-clean-page="results"] ytd-channel-renderer:nth-child(n+6) {
     display: none !important;
-}
-
-/* Hide search result sections after 5th item but keep first 5 visible */
-body[data-youtube-clean-page="results"] ytd-video-renderer:nth-child(-n+5) {
-    display: block !important;
-    visibility: visible !important;
 }
 
 /* Hide additional sections */
@@ -458,21 +547,6 @@ body[data-youtube-clean-page="results"] ytd-movie-renderer,
 body[data-youtube-clean-page="results"] ytd-continuation-item-renderer,
 body[data-youtube-clean-page="results"] .load-more-button {
     display: none !important;
-}
-
-/* Ensure search results container is visible */
-body[data-youtube-clean-page="results"] #contents.ytd-section-list-renderer {
-    display: block !important;
-    visibility: visible !important;
-    max-height: none !important;
-    overflow: visible !important;
-}
-
-/* Show header on search results page for navigation */
-body[data-youtube-clean-page="results"] #masthead,
-body[data-youtube-clean-page="results"] ytd-masthead {
-    display: block !important;
-    visibility: visible !important;
 }
 
 /* Clean watch page layout - completely remove sidebar */
@@ -515,4 +589,20 @@ ytd-comments {
 /* Hide channel watermark */
 .ytp-chrome-top-buttons .ytp-button.ytp-cards-button {
     display: none !important;
+}
+
+/* Style for the search indicator */
+.youtube-clean-search-indicator {
+    z-index: 1000;
+    position: relative;
+    margin: 20px 0 !important;
+}
+
+.youtube-clean-search-indicator button {
+    transition: all 0.3s ease !important;
+}
+
+.youtube-clean-search-indicator button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
 }
