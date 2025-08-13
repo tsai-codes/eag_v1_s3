@@ -1,0 +1,492 @@
+/* YouTube Clean - Styles */
+/* Additional CSS rules to hide YouTube ads, suggestions, and navigation while showing centered search bar */
+
+/* HIDE ORIGINAL HEADER AND SEARCH BAR */
+#masthead,
+ytd-masthead,
+#masthead-container,
+.ytd-masthead {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* CENTERED SEARCH BAR STYLES */
+.youtube-clean-search-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 999999 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.youtube-clean-search-wrapper {
+    text-align: center !important;
+    max-width: 800px !important;
+    width: 90% !important;
+    padding: 40px !important;
+}
+
+.youtube-clean-logo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 40px !important;
+    font-size: 32px !important;
+    font-weight: 300 !important;
+    color: #333 !important;
+}
+
+.youtube-clean-logo svg {
+    margin-right: 15px !important;
+}
+
+.youtube-clean-search-form {
+    position: relative !important;
+    display: flex !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 50px !important;
+    background: white !important;
+    overflow: hidden !important;
+    border: 2px solid #e0e0e0 !important;
+    transition: all 0.3s ease !important;
+}
+
+.youtube-clean-search-form:focus-within {
+    border-color: #4285f4 !important;
+    box-shadow: 0 8px 30px rgba(66, 133, 244, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+.youtube-clean-search-input {
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+    padding: 20px 25px !important;
+    font-size: 18px !important;
+    background: transparent !important;
+    color: #333 !important;
+    font-family: inherit !important;
+}
+
+.youtube-clean-search-input::placeholder {
+    color: #999 !important;
+    font-weight: 300 !important;
+}
+
+.youtube-clean-search-button {
+    border: none !important;
+    background: #4285f4 !important;
+    color: white !important;
+    padding: 20px 25px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background-color 0.3s ease !important;
+    border-radius: 0 50px 50px 0 !important;
+    min-width: 60px !important;
+}
+
+.youtube-clean-search-button:hover {
+    background: #3367d6 !important;
+}
+
+.youtube-clean-search-button svg {
+    fill: white !important;
+}
+
+/* Hide original search elements */
+#search-form,
+#search,
+#search-input,
+#search-icon-legacy,
+.ytd-searchbox,
+#container.ytd-searchbox,
+ytd-searchbox,
+#search-container,
+.gsfi,
+form[role="search"],
+#center.ytd-masthead,
+#search-form.ytd-searchbox,
+.search-btn,
+button[aria-label*="Search"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* HIDE LEFT NAVIGATION MENU */
+#guide,
+#guide-inner,
+#guide-wrapper,
+ytd-guide-renderer,
+#guide-content,
+.ytd-guide-renderer,
+ytd-mini-guide-renderer,
+#mini-guide,
+.guide-container,
+#guide-section-title,
+.guide-section,
+ytd-guide-section-renderer,
+ytd-guide-entry-renderer {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: translateX(-100%) !important;
+}
+
+/* Hide hamburger menu button */
+#guide-button,
+.ytd-masthead #guide-button,
+button[aria-label*="Guide"] {
+    display: none !important;
+}
+
+/* Hide ad containers */
+.video-ads,
+.ytp-ad-module,
+.ytp-ad-overlay-container,
+.ytp-ad-text-overlay,
+.ytp-ad-player-overlay,
+.ad-showing,
+[class*="ad-"],
+[id*="ad-"],
+.masthead-ad-control,
+#player-ads,
+.ytd-display-ad-renderer,
+.ytd-promoted-sparkles-web-renderer,
+.ytd-ad-slot-renderer,
+.ytd-in-feed-ad-layout-renderer,
+.ytd-banner-promo-renderer,
+ytd-promoted-video-renderer,
+ytd-compact-promoted-video-renderer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Hide suggestion sections */
+#contents.ytd-rich-grid-renderer,
+ytd-rich-grid-renderer,
+#dismissible.ytd-rich-grid-media,
+.ytd-rich-grid-media,
+#contents.ytd-section-list-renderer,
+.ytd-shelf-renderer,
+#contents.ytd-expanded-shelf-contents-renderer {
+    display: none !important;
+}
+
+/* Hide sidebar suggestions */
+#secondary,
+#secondary.ytd-watch-flexy,
+#secondary #related,
+#secondary-inner,
+.watch-sidebar,
+#watch-sidebar,
+#watch-sidebar-live-chat,
+ytd-watch-next-secondary-results-renderer,
+ytd-compact-video-renderer,
+ytd-continuation-item-renderer,
+ytd-item-section-renderer,
+.ytd-watch-next-secondary-results-renderer,
+.related-list-item {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* EXPAND CONTENT TO FULL WIDTH */
+ytd-page-manager,
+#page-manager,
+ytd-browse,
+#browse {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+}
+
+/* Remove top margin since we're hiding the header */
+ytd-page-manager {
+    margin-top: 0 !important;
+}
+
+/* Ensure content starts at top */
+#content,
+#primary-content {
+    padding-top: 0 !important;
+}
+
+/* Hide all page content when search overlay is active */
+ytd-page-manager,
+#page-manager,
+ytd-app,
+#content {
+    display: none !important;
+}
+
+/* Show content only on search results pages */
+body[data-youtube-clean-page="results"] ytd-page-manager,
+body[data-youtube-clean-page="results"] #page-manager,
+body[data-youtube-clean-page="results"] ytd-app,
+body[data-youtube-clean-page="results"] #content {
+    display: block !important;
+}
+
+body[data-youtube-clean-page="results"] .youtube-clean-search-container {
+    display: none !important;
+}
+
+/* VIDEO-ONLY EXPERIENCE FOR WATCH PAGES */
+body[data-youtube-clean-page="watch"] ytd-page-manager,
+body[data-youtube-clean-page="watch"] #page-manager,
+body[data-youtube-clean-page="watch"] ytd-app,
+body[data-youtube-clean-page="watch"] #content {
+    display: block !important;
+    background: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body[data-youtube-clean-page="watch"] .youtube-clean-search-container {
+    display: none !important;
+}
+
+/* Hide everything except video player on watch pages */
+body[data-youtube-clean-page="watch"] #secondary,
+body[data-youtube-clean-page="watch"] #secondary.ytd-watch-flexy,
+body[data-youtube-clean-page="watch"] #related,
+body[data-youtube-clean-page="watch"] #guide,
+body[data-youtube-clean-page="watch"] #masthead,
+body[data-youtube-clean-page="watch"] ytd-masthead,
+body[data-youtube-clean-page="watch"] #comments,
+body[data-youtube-clean-page="watch"] ytd-comments,
+body[data-youtube-clean-page="watch"] #meta,
+body[data-youtube-clean-page="watch"] #meta.ytd-watch-flexy,
+body[data-youtube-clean-page="watch"] ytd-video-secondary-info-renderer,
+body[data-youtube-clean-page="watch"] #description,
+body[data-youtube-clean-page="watch"] #info,
+body[data-youtube-clean-page="watch"] #info.ytd-watch-flexy,
+body[data-youtube-clean-page="watch"] ytd-video-primary-info-renderer #container,
+body[data-youtube-clean-page="watch"] #top-row,
+body[data-youtube-clean-page="watch"] #owner,
+body[data-youtube-clean-page="watch"] #upload-info,
+body[data-youtube-clean-page="watch"] #subscribe-button,
+body[data-youtube-clean-page="watch"] #notification-preference-button,
+body[data-youtube-clean-page="watch"] .ytd-video-owner-renderer,
+body[data-youtube-clean-page="watch"] ytd-video-owner-renderer,
+body[data-youtube-clean-page="watch"] #above-the-fold,
+body[data-youtube-clean-page="watch"] #below-the-fold {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Ensure video player is centered and visible */
+body[data-youtube-clean-page="watch"] #movie_player,
+body[data-youtube-clean-page="watch"] #player-container,
+body[data-youtube-clean-page="watch"] #player {
+    display: block !important;
+    visibility: visible !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100vh !important;
+    position: relative !important;
+}
+
+/* Center the primary container for video */
+body[data-youtube-clean-page="watch"] #primary,
+body[data-youtube-clean-page="watch"] #primary.ytd-watch-flexy {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh !important;
+    background: #000 !important;
+}
+
+/* Remove all end screen elements */
+body[data-youtube-clean-page="watch"] .ytp-ce-element,
+body[data-youtube-clean-page="watch"] .ytp-cards-teaser,
+body[data-youtube-clean-page="watch"] .ytp-endscreen-content,
+body[data-youtube-clean-page="watch"] .ytp-pause-overlay,
+body[data-youtube-clean-page="watch"] .ytp-scroll-min,
+body[data-youtube-clean-page="watch"] .ytp-suggested-action,
+body[data-youtube-clean-page="watch"] .ytp-videowall-still,
+body[data-youtube-clean-page="watch"] .ytp-show-tiles,
+body[data-youtube-clean-page="watch"] .ytp-autonav-endscreen-upnext-container,
+body[data-youtube-clean-page="watch"] .ytp-autonav-endscreen-upnext-thumbnail,
+body[data-youtube-clean-page="watch"] .ytp-ce-covering-overlay,
+body[data-youtube-clean-page="watch"] .ytp-ce-expanding-overlay,
+body[data-youtube-clean-page="watch"] .ytp-ce-element-shadow,
+body[data-youtube-clean-page="watch"] .ytp-ce-channel,
+body[data-youtube-clean-page="watch"] .ytp-ce-video,
+body[data-youtube-clean-page="watch"] .ytp-ce-playlist,
+body[data-youtube-clean-page="watch"] .html5-endscreen,
+body[data-youtube-clean-page="watch"] .ytp-autonav-toggle-button {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Hide end screen elements */
+.ytp-ce-element,
+.ytp-cards-teaser,
+.ytp-endscreen-content,
+.ytp-autonav-endscreen-upnext-container,
+.ytp-autonav-endscreen-upnext-thumbnail {
+    display: none !important;
+}
+
+/* Hide shorts and trending */
+ytd-rich-shelf-renderer[is-shorts],
+ytd-reel-shelf-renderer,
+ytd-guide-entry-renderer[href="/feed/trending"],
+ytd-guide-entry-renderer[href="/feed/explore"] {
+    display: none !important;
+}
+
+/* Clean up the layout - Remove both sidebars and expand primary content */
+#primary.ytd-watch-flexy,
+#primary {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+}
+
+/* Force full width layout without navigation */
+.ytd-watch-flexy[flexy],
+ytd-watch-flexy {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+}
+
+/* Ensure video container uses full width */
+#movie_player,
+.html5-video-container {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Remove any flex constraints that might show sidebars */
+.ytd-watch-flexy[theater] #secondary.ytd-watch-flexy,
+.ytd-watch-flexy:not([theater]) #secondary.ytd-watch-flexy,
+.ytd-watch-flexy #secondary,
+#secondary.style-scope.ytd-watch-flexy {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    max-width: 0 !important;
+}
+
+/* Hide autoplay toggle */
+.ytp-autonav-toggle-button {
+    display: none !important;
+}
+
+/* Hide notification bell ads */
+.ytd-notification-topbar-button-renderer .ytd-topbar-menu-button-renderer {
+    display: none !important;
+}
+
+/* Hide premium promotions */
+[href*="premium"] {
+    display: none !important;
+}
+
+/* Clean homepage */
+ytd-browse[page-subtype="home"] #contents {
+    display: none !important;
+}
+
+/* Show only search results */
+ytd-browse[page-subtype="search"] #contents {
+    display: block !important;
+}
+
+/* Limit search results to 5 items */
+ytd-browse[page-subtype="search"] ytd-video-renderer:nth-child(n+6),
+ytd-browse[page-subtype="search"] ytd-playlist-renderer:nth-child(n+6),
+ytd-browse[page-subtype="search"] ytd-channel-renderer:nth-child(n+6) {
+    display: none !important;
+}
+
+/* Hide search result sections after 5th item */
+ytd-browse[page-subtype="search"] ytd-shelf-renderer,
+ytd-browse[page-subtype="search"] ytd-horizontal-card-list-renderer,
+ytd-browse[page-subtype="search"] ytd-radio-renderer,
+ytd-browse[page-subtype="search"] ytd-movie-renderer,
+ytd-browse[page-subtype="search"] ytd-continuation-item-renderer,
+ytd-browse[page-subtype="search"] .load-more-button {
+    display: none !important;
+}
+
+/* Style for search results container */
+ytd-browse[page-subtype="search"] #contents.ytd-section-list-renderer {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Clean watch page layout - completely remove sidebar */
+.ytd-watch-flexy[theater] #secondary.ytd-watch-flexy,
+.ytd-watch-flexy:not([theater]) #secondary.ytd-watch-flexy,
+.ytd-watch-flexy #secondary,
+#secondary.style-scope.ytd-watch-flexy {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    max-width: 0 !important;
+}
+
+/* Additional sidebar hiding for all possible selectors */
+div#secondary,
+ytd-watch-flexy #secondary,
+#columns #secondary,
+.ytd-page-manager #secondary {
+    display: none !important;
+}
+
+/* Hide comments (uncomment if desired) */
+/*
+#comments,
+ytd-comments {
+    display: none !important;
+}
+*/
+
+/* Improve video player focus */
+#movie_player {
+    margin: 0 auto !important;
+}
+
+/* Hide suggested videos overlay */
+.ytp-suggested-action {
+    display: none !important;
+}
+
+/* Hide channel watermark */
+.ytp-chrome-top-buttons .ytp-button.ytp-cards-button {
+    display: none !important;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 300px;
+             <ul>
+            <li>Keeps search bar visible and functional</li>
+            <li>Limits search results to top 5 items</li>
+            <li>Removes all video advertisements</li>
+            <li>Hides suggested videos</li>
+            <li>Removes homepage recommendations</li>
+            <li>Completely hides the sidebar</li>
+            <li>Removes end-screen promotions</li>
+            <li>Hides autoplay suggestions</li>
+            <li>Expands video to full width</li>
+        </ul>dding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .toggle-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .toggle-button {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .toggle-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .toggle-button.disabled {
+            background: #f44336;
+        }
+        
+        .toggle-button.disabled:hover {
+            background: #da190b;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .features {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .features h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .features ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .features li {
+            margin-bottom: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>YouTube Clean</h1>
+        <p>Ad-free & Distraction-free YouTube</p>
+    </div>
+    
+    <div class="toggle-container">
+        <button id="toggleButton" class="toggle-button">
+            <span id="buttonText">Enable</span>
+        </button>
+        <div id="status" class="status">Checking status...</div>
+    </div>
+    
+    <div class="features">
+        <h3>Features:</h3>
+        <ul>
+            <li>Video-only experience when watching</li>
+            <li>No end-screen suggestions or recommendations</li>
+            <li>Large centered search bar on homepage</li>
+            <li>Wide search input for easy text entry</li>
+            <li>Limits search results to top 5 items</li>
+            <li>Removes all video advertisements</li>
+            <li>Hides video descriptions and comments</li>
+            <li>Removes channel info and subscribe buttons</li>
+            <li>Black background for cinema experience</li>
+            <li>Full-screen video player focus</li>
+        </ul>
+    </div>
+    
+    <div class="footer">
+        <p>Reload YouTube page after toggling</p>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
