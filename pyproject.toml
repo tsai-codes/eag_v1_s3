@@ -1,0 +1,44 @@
+[project]
+name = "eag-session3"
+version = "0.1.0"
+description = "TSAI EAG Session 3 - AI Agent with Function Calling"
+readme = "README.md"
+authors = [
+    { name = "Jay Sangaraju", email = "muralis2raj@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "google-genai>=1.50.1",
+    "python-dotenv>=1.2.1",
+    # Self-reference as editable (uncomment if needed)
+    # "eag-session3 @ file://.",
+]
+
+# Optional dependencies for development
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+]
+
+[project.scripts]
+eag-session3 = "eag_session3:main"
+
+[build-system]
+requires = ["uv_build>=0.8.17,<0.9.0"]
+build-backend = "uv_build"
+
+# UV-specific configuration
+[tool.uv]
+# Development dependencies
+dev-dependencies = [
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+# Package sources for editable dependencies
+[tool.uv.sources]
+# Self-reference as editable
+eag-session3 = { path = ".", editable = true }
